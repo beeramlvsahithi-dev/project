@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+v 
+<title>ArtVista | Online Art Gallery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GENERAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Poppins,sans-serif;
+    background:#f8f5ef;
+    color:#222;
+    transition:.4s;
+}
+
+body.dark{
+    background:#111;
+    color:#eee;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+h1,h2,h3{
+    font-family:"Playfair Display",serif;
+}
+
+
+/* ================= NAVBAR ================= */
+
+header{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    background:#fff;
+    border-bottom:1px solid #eee;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+body.dark header{
+    background:#171717;
+    border-color:#333;
+}
+
+.logo{
+    font-family:"Playfair Display",serif;
+    font-size:27px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#b08d57;
+}
+
+nav{
+    display:flex;
+    gap:28px;
+}
+
+nav a{
+    font-size:13px;
+    position:relative;
+}
+
+nav a:hover{
+    color:#b08d57;
+}
+
+.nav-icons{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.icon-btn{
+    border:0;
+    background:none;
+    font-size:19px;
+    cursor:pointer;
+}
+
+.login-btn{
+    background:#b08d57;
+    color:#fff;
+    border:0;
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:650px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:60px;
+    padding:70px 8%;
+}
+
+.hero-content{
+    max-width:550px;
+}
+
+.small-title{
+    color:#b08d57;
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.hero h1{
+    font-size:70px;
+    line-height:1.05;
+    margin:20px 0;
+}
+
+.hero p{
+    color:#777;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.btn{
+    background:#222;
+    color:#fff;
+    border:0;
+    padding:14px 25px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#b08d57;
+    transform:translateY(-2px);
+}
+
+.gold{
+    background:#b08d57;
+}
+
+.outline-btn{
+    background:transparent;
+    border:1px solid #222;
+    padding:13px 25px;
+    cursor:pointer;
+}
+
+body.dark .outline-btn{
+    color:#fff;
+    border-color:#777;
+}
+
+.hero-image{
+    position:relative;
+}
+
+.hero-image img{
+    width:100%;
+    height:520px;
+    object-fit:cover;
+}
+
+.hero-label{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    background:#fff;
+    padding:12px 20px;
+    font-size:12px;
+}
+
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+}
+
+.stat{
+    text-align:center;
+    padding:30px;
+    border-right:1px solid #ddd;
+}
+
+.stat h2{
+    font-size:30px;
+}
+
+.stat p{
+    color:#888;
+    font-size:12px;
+}
+
+
+/* ================= SECTION ================= */
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title h2{
+    font-size:45px;
+    margin:10px 0;
+}
+
+.section-title p{
+    color:#888;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    width:100%;
+    padding:16px 20px;
+    border:1px solid #ccc;
+    background:#fff;
+    margin-bottom:25px;
+    outline:none;
+    font-family:inherit;
+}
+
+body.dark .search-box{
+    background:#222;
+    color:#fff;
+    border-color:#444;
+}
+
+.filter-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:40px;
+}
+
+.filter-btn{
+    padding:10px 18px;
+    border:1px solid #ccc;
+    background:transparent;
+    cursor:pointer;
+}
+
+.filter-btn.active,
+.filter-btn:hover{
+    background:#b08d57;
+    color:#fff;
+    border-color:#b08d57;
+}
+
+
+/* ================= ART GRID ================= */
+
+.art-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.art-card{
+    background:#fff;
+    position:relative;
+    transition:.3s;
+}
+
+body.dark .art-card{
+    background:#1d1d1d;
+}
+
+.art-card:hover{
+    transform:translateY(-7px);
+}
+
+.art-image{
+    height:300px;
+    overflow:hidden;
+}
+
+.art-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.art-card:hover img{
+    transform:scale(1.05);
+}
+
+.heart{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.heart.active{
+    color:#b08d57;
+}
+
+.art-info{
+    padding:20px;
+}
+
+.art-info h3{
+    font-size:21px;
+    margin-bottom:5px;
+}
+
+.artist{
+    color:#888;
+    font-size:12px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:20px;
+}
+
+.price{
+    font-weight:bold;
+}
+
+.view-btn{
+    border:0;
+    background:none;
+    color:#b08d57;
+    cursor:pointer;
+}
+
+
+/* ================= AUCTION ================= */
+
+.auction{
+    background:#171717;
+    color:#fff;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.auction-image img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+}
+
+.auction-info h2{
+    font-size:50px;
+    margin:15px 0;
+}
+
+.auction-info p{
+    color:#aaa;
+    line-height:1.8;
+}
+
+.timer{
+    display:flex;
+    gap:10px;
+    margin:30px 0;
+}
+
+.time-box{
+    border:1px solid #555;
+    padding:15px;
+    min-width:70px;
+    text-align:center;
+}
+
+.time-box span{
+    display:block;
+    font-size:23px;
+}
+
+.time-box small{
+    color:#aaa;
+    font-size:9px;
+}
+
+.bid-box{
+    display:flex;
+    margin-top:20px;
+}
+
+.bid-box input{
+    padding:14px;
+    width:220px;
+    border:0;
+    outline:none;
+}
+
+
+/* ================= ARTISTS ================= */
+
+.artists{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.artist-card{
+    background:#fff;
+    text-align:center;
+    padding-bottom:25px;
+}
+
+body.dark .artist-card{
+    background:#1d1d1d;
+}
+
+.artist-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.artist-card h3{
+    font-size:22px;
+    margin:15px 0 5px;
+}
+
+.artist-card p{
+    color:#888;
+    font-size:12px;
+}
+
+.artist-card span{
+    color:#b08d57;
+    font-size:11px;
+}
+
+
+/* ================= EXHIBITIONS ================= */
+
+.exhibition-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.exhibition-card{
+    background:#fff;
+}
+
+body.dark .exhibition-card{
+    background:#1d1d1d;
+}
+
+.exhibition-card img{
+    width:100%;
+    height:330px;
+    object-fit:cover;
+}
+
+.exhibition-info{
+    padding:30px;
+}
+
+.exhibition-info span{
+    color:#b08d57;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.exhibition-info h3{
+    font-size:28px;
+    margin:10px 0;
+}
+
+.exhibition-info p{
+    color:#888;
+    margin-bottom:20px;
+}
+
+
+/* ================= REVIEWS ================= */
+
+.reviews{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.review{
+    background:#fff;
+    padding:35px;
+}
+
+body.dark .review{
+    background:#1d1d1d;
+}
+
+.stars{
+    color:#b08d57;
+    letter-spacing:3px;
+    margin-bottom:15px;
+}
+
+.review p{
+    color:#777;
+    line-height:1.8;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#151515;
+    color:#fff;
+    padding:60px 8% 20px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:40px;
+}
+
+footer h3{
+    margin-bottom:15px;
+}
+
+footer p,
+footer a{
+    color:#aaa;
+    font-size:12px;
+    line-height:2;
+    display:block;
+}
+
+.copyright{
+    border-top:1px solid #333;
+    padding-top:20px;
+    text-align:center;
+    color:#777;
+    font-size:11px;
+}
+
+
+/* ================= MODALS ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.close{
+    position:absolute;
+    right:15px;
+    top:10px;
+    border:0;
+    background:none;
+    font-size:30px;
+    cursor:pointer;
+    color:inherit;
+}
+
+.modal-content{
+    background:#fff;
+    width:850px;
+    max-width:95%;
+    position:relative;
+}
+
+body.dark .modal-content{
+    background:#1d1d1d;
+    color:#fff;
+}
+
+.modal-art{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.modal-art img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+}
+
+.modal-info{
+    padding:45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.modal-info h2{
+    font-size:35px;
+    margin:10px 0;
+}
+
+.modal-info h4{
+    color:#888;
+}
+
+.modal-info p{
+    color:#888;
+    line-height:1.7;
+    margin:15px 0;
+}
+
+
+/* ================= LOGIN ================= */
+
+.auth-box{
+    width:420px;
+    max-width:95%;
+    background:#fff;
+    padding:45px;
+    text-align:center;
+    position:relative;
+}
+
+body.dark .auth-box{
+    background:#1d1d1d;
+    color:#fff;
+}
+
+.auth-logo{
+    font-family:"Playfair Display",serif;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.auth-logo span{
+    color:#b08d57;
+}
+
+.auth-box h2{
+    font-size:34px;
+    margin:10px;
+}
+
+.auth-box p{
+    color:#888;
+    font-size:12px;
+    margin-bottom:25px;
+}
+
+.auth-box input{
+    width:100%;
+    padding:14px;
+    margin-bottom:14px;
+    border:1px solid #ccc;
+    outline:none;
+}
+
+.auth-submit{
+    width:100%;
+}
+
+.switch-auth button{
+    background:none;
+    border:0;
+    color:#b08d57;
+    cursor:pointer;
+}
+
+.hidden{
+    display:none;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard{
+    background:#fff;
+    width:1000px;
+    max-width:95%;
+    max-height:90vh;
+    overflow:auto;
+    padding:40px;
+    position:relative;
+}
+
+body.dark .dashboard{
+    background:#1d1d1d;
+}
+
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.dashboard-header h2{
+    font-size:38px;
+    margin:8px 0;
+}
+
+.dashboard-header p{
+    color:#888;
+    font-size:12px;
+}
+
+.dashboard-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:40px;
+}
+
+.dashboard-stat{
+    background:#f4f0e9;
+    padding:22px;
+}
+
+body.dark .dashboard-stat{
+    background:#292929;
+}
+
+.dashboard-stat span{
+    font-size:22px;
+}
+
+.dashboard-stat h3{
+    font-size:27px;
+    margin:8px 0;
+}
+
+.dashboard-stat p{
+    color:#888;
+    font-size:11px;
+}
+
+.dashboard-title{
+    font-size:27px;
+    margin-bottom:20px;
+}
+
+.dashboard-artworks{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.dashboard-art{
+    background:#f4f0e9;
+}
+
+body.dark .dashboard-art{
+    background:#292929;
+}
+
+.dashboard-art img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.dashboard-art div{
+    padding:15px;
+}
+
+.dashboard-art h4{
+    font-family:"Playfair Display",serif;
+    font-size:19px;
+}
+
+.dashboard-art p{
+    color:#888;
+    margin:5px 0 10px;
+}
+
+.status{
+    font-size:9px;
+    padding:5px 9px;
+}
+
+.sold{
+    background:#d8eadb;
+    color:#27613a;
+}
+
+.active-status{
+    background:#e8dfcc;
+    color:#735c2c;
+}
+
+.auction-status{
+    background:#ead6d6;
+    color:#7a3434;
+}
+
+
+/* ================= UPLOAD ================= */
+
+.upload-box{
+    width:550px;
+    max-width:95%;
+    background:#fff;
+    padding:40px;
+    position:relative;
+}
+
+body.dark .upload-box{
+    background:#1d1d1d;
+}
+
+.upload-box h2{
+    font-size:35px;
+    margin:10px 0;
+}
+
+.upload-box p{
+    color:#888;
+    font-size:12px;
+    margin-bottom:25px;
+}
+
+.upload-box input,
+.upload-box select,
+.upload-box textarea{
+    width:100%;
+    padding:14px;
+    margin-bottom:13px;
+    border:1px solid #ccc;
+    background:transparent;
+    color:inherit;
+    outline:none;
+    font-family:inherit;
+}
+
+.upload-box textarea{
+    height:100px;
+    resize:none;
+}
+
+.upload-box .btn{
+    width:100%;
+}
+
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:#222;
+    color:#fff;
+    padding:15px 25px;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.4s;
+    z-index:5000;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .art-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .artists{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .hero{
+        padding:50px 6%;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .art-grid,
+    .artists,
+    .reviews,
+    .exhibition-grid,
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .auction{
+        grid-template-columns:1fr;
+    }
+
+    .modal-art{
+        grid-template-columns:1fr;
+    }
+
+    .modal-art img{
+        height:300px;
+    }
+
+    .dashboard-artworks{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+<div class="logo">
+ART<span>VISTA</span>
+</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#explore">Explore</a>
+<a href="#artists">Artists</a>
+<a href="#auction">Auctions</a>
+<a href="#exhibitions">Exhibitions</a>
+<a href="#reviews">Reviews</a>
+</nav>
+
+<div class="nav-icons">
+
+<button class="icon-btn" onclick="toggleDark()">🌙</button>
+
+<button class="icon-btn" onclick="showWishlist()">♡</button>
+
+<button class="icon-btn" onclick="showCart()">🛒</button>
+
+<button class="login-btn" onclick="openLogin()">Login</button>
+
+</div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<div class="small-title">
+ONLINE ART GALLERY
+</div>
+
+<h1>
+Where Art<br>
+Finds Its<br>
+Audience.
+</h1>
+
+<p>
+Discover original paintings, photography,
+digital art and sculptures from talented
+artists around the world.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#explore">
+<button class="btn">
+Explore Collection →
+</button>
+</a>
+
+<button class="outline-btn" onclick="openRegister()">
+Become an Artist
+</button>
+
+</div>
+
+</div>
+
+
+<div class="hero-image">
+
+<img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=85">
+
+<div class="hero-label">
+Featured Artwork
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<div class="stats">
+
+<div class="stat">
+<h2>500+</h2>
+<p>Artworks</p>
+</div>
+
+<div class="stat">
+<h2>120+</h2>
+<p>Artists</p>
+</div>
+
+<div class="stat">
+<h2>25+</h2>
+<p>Exhibitions</p>
+</div>
+
+<div class="stat">
+<h2>15+</h2>
+<p>Countries</p>
+</div>
+
+</div>
+
+
+<!-- ================= EXPLORE ================= -->
+
+<section id="explore">
+
+<div class="section-title">
+
+<div class="small-title">
+OUR COLLECTION
+</div>
+
+<h2>
+Explore Art
+</h2>
+
+<p>
+Find something that speaks to you.
+</p>
+
+</div>
+
+
+<input
+class="search-box"
+id="search"
+placeholder="🔍 Search artwork, artist or category..."
+onkeyup="searchArt()">
+
+
+<div class="filter-container">
+
+<button class="filter-btn active" onclick="filterArt('All',this)">
+All
+</button>
+
+<button class="filter-btn" onclick="filterArt('Painting',this)">
+🎨 Paintings
+</button>
+
+<button class="filter-btn" onclick="filterArt('Photography',this)">
+📷 Photography
+</button>
+
+<button class="filter-btn" onclick="filterArt('Digital Art',this)">
+💻 Digital Art
+</button>
+
+<button class="filter-btn" onclick="filterArt('Sculpture',this)">
+🗿 Sculpture
+</button>
+
+<button class="filter-btn" onclick="filterArt('Abstract',this)">
+🌀 Abstract
+</button>
+
+<button class="filter-btn" onclick="filterArt('Traditional Art',this)">
+🖌️ Traditional
+</button>
+
+</div>
+
+
+<div class="art-grid" id="artGrid"></div>
+
+</section>
+
+
+<!-- ================= AUCTION ================= -->
+
+<section class="auction" id="auction">
+
+<div class="auction-image">
+
+<img src="https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=1000&q=85">
+
+</div>
+
+
+<div class="auction-info">
+
+<div class="small-title">
+🔥 LIVE AUCTION
+</div>
+
+<h2>
+Ocean Serenity
+</h2>
+
+<p>
+A captivating contemporary artwork exploring
+the relationship between humanity and the sea.
+</p>
+
+
+<div class="timer">
+
+<div class="time-box">
+<span id="days">02</span>
+<small>Days</small>
+</div>
+
+<div class="time-box">
+<span id="hours">05</span>
+<small>Hours</small>
+</div>
+
+<div class="time-box">
+<span id="minutes">00</span>
+<small>Minutes</small>
+</div>
+
+<div class="time-box">
+<span id="seconds">00</span>
+<small>Seconds</small>
+</div>
+
+</div>
+
+
+<h3>
+Current Bid:
+₹<span id="bid">18500</span>
+</h3>
+
+
+<div class="bid-box">
+
+<input
+type="number"
+id="bidInput"
+placeholder="Enter your bid">
+
+<button class="btn gold" onclick="placeBid()">
+Place Bid
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ARTISTS ================= -->
+
+<section id="artists">
+
+<div class="section-title">
+
+<div class="small-title">
+CREATIVE MINDS
+</div>
+
+<h2>
+Featured Artists
+</h2>
+
+<p>
+Meet the talented people behind the art.
+</p>
+
+</div>
+
+
+<div class="artists">
+
+
+<div class="artist-card">
+
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+
+<h3>Rahul Sharma</h3>
+
+<p>Contemporary Artist</p>
+
+<span>24 Artworks</span>
+
+<br><br>
+
+<button class="btn" onclick="openDashboard()">
+View Profile
+</button>
+
+</div>
+
+
+<div class="artist-card">
+
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+<h3>Priya Mehta</h3>
+
+<p>Digital Artist</p>
+
+<span>18 Artworks</span>
+
+<br><br>
+
+<button class="btn">
+View Profile
+</button>
+
+</div>
+
+
+<div class="artist-card">
+
+<img src="https://randomuser.me/api/portraits/men/45.jpg">
+
+<h3>Arjun Verma</h3>
+
+<p>Photographer</p>
+
+<span>31 Artworks</span>
+
+<br><br>
+
+<button class="btn">
+View Profile
+</button>
+
+</div>
+
+
+<div class="artist-card">
+
+<img src="https://randomuser.me/api/portraits/women/65.jpg">
+
+<h3>Kavya Rao</h3>
+
+<p>Traditional Artist</p>
+
+<span>27 Artworks</span>
+
+<br><br>
+
+<button class="btn">
+View Profile
+</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ================= EXHIBITIONS ================= -->
+
+<section id="exhibitions">
+
+<div class="section-title">
+
+<div class="small-title">
+VIRTUAL GALLERY
+</div>
+
+<h2>
+Current Exhibitions
+</h2>
+
+<p>
+Step into a world of curated artistic experiences.
+</p>
+
+</div>
+
+
+<div class="exhibition-grid">
+
+
+<div class="exhibition-card">
+
+<img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=900&q=80">
+
+<div class="exhibition-info">
+
+<span>
+12 AUG — 30 SEP 2026
+</span>
+
+<h3>
+The Colors of Silence
+</h3>
+
+<p>
+A collection exploring emotions through color and space.
+</p>
+
+<button class="btn">
+Enter Exhibition →
+</button>
+
+</div>
+
+</div>
+
+
+<div class="exhibition-card">
+
+<img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=900&q=80">
+
+<div class="exhibition-info">
+
+<span>
+01 SEP — 15 OCT 2026
+</span>
+
+<h3>
+Modern Expressions
+</h3>
+
+<p>
+Contemporary works from emerging artists across India.
+</p>
+
+<button class="btn">
+Enter Exhibition →
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ================= REVIEWS ================= -->
+
+<section id="reviews">
+
+<div class="section-title">
+
+<div class="small-title">
+OUR COMMUNITY
+</div>
+
+<h2>
+What Collectors Say
+</h2>
+
+</div>
+
+
+<div class="reviews">
+
+<div class="review">
+
+<div class="stars">
+★★★★★
+</div>
+
+<p>
+"ArtVista makes discovering new artists incredibly easy.
+The collection is beautiful."
+</p>
+
+<br>
+
+<strong>
+— Ananya
+</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">
+★★★★★
+</div>
+
+<p>
+"I purchased my first original artwork through ArtVista
+and absolutely loved it."
+</p>
+
+<br>
+
+<strong>
+— Rohan
+</strong>
+
+</div>
+
+
+<div class="review">
+
+<div class="stars">
+★★★★★
+</div>
+
+<p>
+"The auction experience is simple, exciting and very user friendly."
+</p>
+
+<br>
+
+<strong>
+— Meera
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>
+ARTVISTA
+</h3>
+
+<p>
+A digital home for artists,
+collectors and art enthusiasts.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>
+Explore
+</h3>
+
+<a href="#explore">Artwork</a>
+<a href="#artists">Artists</a>
+<a href="#auction">Auctions</a>
+
+</div>
+
+
+<div>
+
+<h3>
+Community
+</h3>
+
+<a href="#reviews">Reviews</a>
+<a href="#exhibitions">Exhibitions</a>
+
+</div>
+
+
+<div>
+
+<h3>
+Contact
+</h3>
+
+<p>
+📧 hello@artvista.com
+</p>
+
+<p>
+📍 India
+</p>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+© 2026 ArtVista. All Rights Reserved.
+</div>
+
+</footer>
+
+
+<!-- ================= ARTWORK MODAL ================= -->
+
+<div class="modal" id="artModal">
+
+<div class="modal-content">
+
+<button class="close" onclick="closeModal()">×</button>
+
+<div class="modal-art">
+
+<img id="modalImage">
+
+<div class="modal-info">
+
+<div class="small-title">
+ARTWORK
+</div>
+
+<h2 id="modalTitle"></h2>
+
+<h4 id="modalArtist"></h4>
+
+<div class="stars">
+★★★★★
+</div>
+
+<p id="modalDescription"></p>
+
+<h2 id="modalPrice"></h2>
+
+<p>
+Original artwork<br>
+Certificate included<br>
+Secure packaging
+</p>
+
+<button class="btn gold" onclick="addCart()">
+🛒 Add to Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div class="modal" id="authModal">
+
+<div class="auth-box">
+
+<button class="close" onclick="closeAuth()">×</button>
+
+<div class="auth-logo">
+ART<span>VISTA</span>
+</div>
+
+<h2 id="authTitle">
+Welcome Back
+</h2>
+
+<p id="authSubtitle">
+Login to continue your art journey.
+</p>
+
+
+<div id="nameBox" class="hidden">
+
+<input
+id="registerName"
+placeholder="Full Name">
+
+</div>
+
+
+<input
+id="email"
+type="email"
+placeholder="Email Address">
+
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+
+<button class="btn auth-submit" onclick="submitAuth()">
+Login
+</button>
+
+
+<p class="switch-auth">
+
+<span id="switchText">
+Don't have an account?
+</span>
+
+<button onclick="switchAuth()" id="switchButton">
+Register
+</button>
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="modal" id="dashboardModal">
+
+<div class="dashboard">
+
+<button class="close" onclick="closeDashboard()">×</button>
+
+
+<div class="dashboard-header">
+
+<div>
+
+<div class="small-title">
+ARTIST STUDIO
+</div>
+
+<h2>
+Welcome, Rahul 👋
+</h2>
+
+<p>
+Manage your artwork and track your collection.
+</p>
+
+</div>
+
+
+<button class="btn gold" onclick="openUpload()">
++ Upload Artwork
+</button>
+
+</div>
+
+
+<div class="dashboard-stats">
+
+<div class="dashboard-stat">
+
+<span>🎨</span>
+
+<h3>24</h3>
+
+<p>Artworks</p>
+
+</div>
+
+
+<div class="dashboard-stat">
+
+<span>💰</span>
+
+<h3>₹1.25L</h3>
+
+<p>Total Sales</p>
+
+</div>
+
+
+<div class="dashboard-stat">
+
+<span>👁️</span>
+
+<h3>4.8K</h3>
+
+<p>Profile Views</p>
+
+</div>
+
+
+<div class="dashboard-stat">
+
+<span>🔨</span>
+
+<h3>3</h3>
+
+<p>Active Auctions</p>
+
+</div>
+
+</div>
+
+
+<h3 class="dashboard-title">
+My Artworks
+</h3>
+
+
+<div class="dashboard-artworks">
+
+
+<div class="dashboard-art">
+
+<img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=500&q=80">
+
+<div>
+
+<h4>Golden Horizon</h4>
+
+<p>₹12,000</p>
+
+<span class="status sold">
+Sold
+</span>
+
+</div>
+
+</div>
+
+
+<div class="dashboard-art">
+
+<img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=500&q=80">
+
+<div>
+
+<h4>Blue Emotion</h4>
+
+<p>₹15,000</p>
+
+<span class="status active-status">
+Active
+</span>
+
+</div>
+
+</div>
+
+
+<div class="dashboard-art">
+
+<img src="https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&w=500&q=80">
+
+<div>
+
+<h4>Dream Colors</h4>
+
+<p>₹19,500</p>
+
+<span class="status auction-status">
+Auction
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= UPLOAD MODAL ================= -->
+
+<div class="modal" id="uploadModal">
+
+<div class="upload-box">
+
+<button class="close" onclick="closeUpload()">×</button>
+
+<div class="small-title">
+ARTIST STUDIO
+</div>
+
+<h2>
+Upload New Artwork
+</h2>
+
+<p>
+Share your creativity with the ArtVista community.
+</p>
+
+
+<input
+id="uploadTitle"
+placeholder="Artwork Title">
+
+
+<select id="uploadCategory">
+
+<option>Painting</option>
+<option>Photography</option>
+<option>Digital Art</option>
+<option>Sculpture</option>
+<option>Abstract</option>
+<option>Traditional Art</option>
+
+</select>
+
+
+<input
+id="uploadPrice"
+type="number"
+placeholder="Price in ₹">
+
+
+<textarea
+id="uploadDescription"
+placeholder="Artwork Description">
+</textarea>
+
+
+<input
+id="uploadImage"
+placeholder="Image URL">
+
+
+<button class="btn gold" onclick="uploadArtwork()">
+Publish Artwork
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ================= ARTWORK DATA ================= */
+
+let artworks=[
+
+{
+title:"Golden Horizon",
+artist:"Rahul Sharma",
+category:"Painting",
+price:12000,
+image:"https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=85",
+description:"A warm contemporary painting inspired by golden sunsets and peaceful landscapes."
+},
+
+{
+title:"Ocean Dreams",
+artist:"Priya Mehta",
+category:"Digital Art",
+price:8500,
+image:"https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=800&q=85",
+description:"A digital exploration of ocean waves, dreams and imagination."
+},
+
+{
+title:"Urban Silence",
+artist:"Arjun Verma",
+category:"Photography",
+price:7000,
+image:"https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=85",
+description:"A minimalist photograph capturing the quiet beauty of modern cities."
+},
+
+{
+title:"Blue Emotion",
+artist:"Rahul Sharma",
+category:"Abstract",
+price:15000,
+image:"https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=85",
+description:"An abstract composition representing emotion through color and movement."
+},
+
+{
+title:"The Thinker",
+artist:"Arjun Verma",
+category:"Sculpture",
+price:22000,
+image:"https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=800&q=85",
+description:"A modern sculpture exploring human thought and identity."
+},
+
+{
+title:"Nature's Whisper",
+artist:"Priya Mehta",
+category:"Photography",
+price:9500,
+image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=85",
+description:"A peaceful photographic study of nature."
+},
+
+{
+title:"Mountain Dreams",
+artist:"Kavya Rao",
+category:"Painting",
+price:18000,
+image:"https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=800&q=85",
+description:"A beautiful mountain landscape painted with rich colors."
+},
+
+{
+title:"Indian Heritage",
+artist:"Kavya Rao",
+category:"Traditional Art",
+price:25000,
+image:"https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=800&q=85",
+description:"A traditional artwork celebrating India's rich cultural heritage."
+},
+
+{
+title:"Midnight City",
+artist:"Arjun Verma",
+category:"Photography",
+price:11000,
+image:"https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=85",
+description:"A cinematic photograph of a city glowing under the midnight sky."
+},
+
+{
+title:"Red Passion",
+artist:"Rahul Sharma",
+category:"Abstract",
+price:16500,
+image:"https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&w=800&q=85",
+description:"A powerful abstract painting representing passion and energy."
+},
+
+{
+title:"Forest Light",
+artist:"Priya Mehta",
+category:"Painting",
+price:14000,
+image:"https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=85",
+description:"A peaceful forest scene illuminated by soft morning light."
+},
+
+{
+title:"Cosmic Journey",
+artist:"Priya Mehta",
+category:"Digital Art",
+price:13500,
+image:"https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=85",
+description:"A futuristic digital artwork inspired by galaxies."
+}
+
+];
+
+
+/* ================= DISPLAY ART ================= */
+
+function displayArt(data){
+
+let grid=document.getElementById("artGrid");
+
+grid.innerHTML="";
+
+data.forEach((art,index)=>{
+
+grid.innerHTML+=`
+
+<div class="art-card">
+
+<div class="art-image">
+
+<img src="${art.image}">
+
+</div>
+
+<button class="heart" onclick="wishlist(${index})">
+♡
+</button>
+
+<div class="art-info">
+
+<h3>${art.title}</h3>
+
+<div class="artist">
+By ${art.artist}
+</div>
+
+<div class="price-row">
+
+<div class="price">
+₹${art.price.toLocaleString()}
+</div>
+
+<button class="view-btn" onclick="viewArt(${index})">
+View →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+displayArt(artworks);
+
+
+/* ================= SEARCH ================= */
+
+function searchArt(){
+
+let value=document
+.getElementById("search")
+.value
+.toLowerCase();
+
+let result=artworks.filter(art=>
+
+art.title.toLowerCase().includes(value) ||
+
+art.artist.toLowerCase().includes(value) ||
+
+art.category.toLowerCase().includes(value)
+
+);
+
+displayArt(result);
+
+}
+
+
+/* ================= FILTER ================= */
+
+function filterArt(category,button){
+
+document
+.querySelectorAll(".filter-btn")
+.forEach(btn=>btn.classList.remove("active"));
+
+button.classList.add("active");
+
+if(category==="All"){
+
+displayArt(artworks);
+
+}else{
+
+displayArt(
+artworks.filter(
+art=>art.category===category
+)
+);
+
+}
+
+}
+
+
+/* ================= ARTWORK MODAL ================= */
+
+let selectedArt=null;
+
+function viewArt(index){
+
+selectedArt=artworks[index];
+
+document.getElementById("modalImage").src=selectedArt.image;
+
+document.getElementById("modalTitle").textContent=selectedArt.title;
+
+document.getElementById("modalArtist").textContent=
+"By "+selectedArt.artist;
+
+document.getElementById("modalDescription").textContent=
+selectedArt.description;
+
+document.getElementById("modalPrice").textContent=
+"₹"+selectedArt.price.toLocaleString();
+
+document.getElementById("artModal").classList.add("show");
+
+}
+
+function closeModal(){
+
+document
+.getElementById("artModal")
+.classList.remove("show");
+
+}
+
+
+/* ================= WISHLIST ================= */
+
+function wishlist(index){
+
+showToast("❤️ Added to wishlist!");
+
+}
+
+
+/* ================= CART ================= */
+
+function addCart(){
+
+showToast("🛒 Artwork added to cart!");
+
+}
+
+function showCart(){
+
+showToast("🛒 Your cart is ready!");
+
+}
+
+function showWishlist(){
+
+showToast("❤️ Your wishlist is ready!");
+
+}
+
+
+/* ================= DARK MODE ================= */
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+}
+
+
+/* ================= LOGIN ================= */
+
+let loginMode=true;
+
+function openLogin(){
+
+loginMode=true;
+
+updateAuth();
+
+document
+.getElementById("authModal")
+.classList.add("show");
+
+}
+
+function openRegister(){
+
+loginMode=false;
+
+updateAuth();
+
+document
+.getElementById("authModal")
+.classList.add("show");
+
+}
+
+function closeAuth(){
+
+document
+.getElementById("authModal")
+.classList.remove("show");
+
+}
+
+function switchAuth(){
+
+loginMode=!loginMode;
+
+updateAuth();
+
+}
+
+function updateAuth(){
+
+let title=document.getElementById("authTitle");
+
+let subtitle=document.getElementById("authSubtitle");
+
+let nameBox=document.getElementById("nameBox");
+
+let submit=document.querySelector(".auth-submit");
+
+let switchText=document.getElementById("switchText");
+
+let switchButton=document.getElementById("switchButton");
+
+
+if(loginMode){
+
+title.textContent="Welcome Back";
+
+subtitle.textContent=
+"Login to continue your art journey.";
+
+nameBox.classList.add("hidden");
+
+submit.textContent="Login";
+
+switchText.textContent=
+"Don't have an account?";
+
+switchButton.textContent="Register";
+
+}else{
+
+title.textContent="Join ArtVista";
+
+subtitle.textContent=
+"Create your account and discover art.";
+
+nameBox.classList.remove("hidden");
+
+submit.textContent="Create Account";
+
+switchText.textContent=
+"Already have an account?";
+
+switchButton.textContent="Login";
+
+}
+
+}
+
+
+function submitAuth(){
+
+let email=document.getElementById("email").value;
+
+let password=document.getElementById("password").value;
+
+if(!email || !password){
+
+showToast("Please fill all required fields.");
+
+return;
+
+}
+
+if(loginMode){
+
+showToast("✓ Login successful!");
+
+}else{
+
+let name=document.getElementById("registerName").value;
+
+if(!name){
+
+showToast("Please enter your name.");
+
+return;
+
+}
+
+showToast("🎉 Account created successfully!");
+
+}
+
+setTimeout(closeAuth,1000);
+
+}
+
+
+/* ================= DASHBOARD ================= */
+
+function openDashboard(){
+
+document
+.getElementById("dashboardModal")
+.classList.add("show");
+
+}
+
+function closeDashboard(){
+
+document
+.getElementById("dashboardModal")
+.classList.remove("show");
+
+}
+
+
+/* ================= UPLOAD ================= */
+
+function openUpload(){
+
+document
+.getElementById("uploadModal")
+.classList.add("show");
+
+}
+
+function closeUpload(){
+
+document
+.getElementById("uploadModal")
+.classList.remove("show");
+
+}
+
+
+function uploadArtwork(){
+
+let title=document.getElementById("uploadTitle").value;
+
+let category=document.getElementById("uploadCategory").value;
+
+let price=Number(
+document.getElementById("uploadPrice").value
+);
+
+let description=
+document.getElementById("uploadDescription").value;
+
+let image=
+document.getElementById("uploadImage").value;
+
+
+if(!title || !price || !description || !image){
+
+showToast("Please fill all artwork details.");
+
+return;
+
+}
+
+
+artworks.push({
+
+title:title,
+
+artist:"Rahul Sharma",
+
+category:category,
+
+price:price,
+
+image:image,
+
+description:description
+
+});
+
+
+displayArt(artworks);
+
+closeUpload();
+
+showToast("🎨 Artwork published successfully!");
+
+}
+
+
+/* ================= AUCTION ================= */
+
+function placeBid(){
+
+let input=document.getElementById("bidInput");
+
+let bid=Number(input.value);
+
+let current=Number(
+document.getElementById("bid").textContent
+);
+
+if(!bid || bid<=current){
+
+showToast(
+"Bid must be higher than ₹"+
+current.toLocaleString()
+);
+
+return;
+
+}
+
+document.getElementById("bid").textContent=
+bid.toLocaleString();
+
+input.value="";
+
+showToast("🎉 Your bid was placed successfully!");
+
+}
+
+
+/* ================= TIMER ================= */
+
+let endTime=
+new Date().getTime()+
+2*24*60*60*1000+
+5*60*60*1000;
+
+
+setInterval(function(){
+
+let distance=
+endTime-new Date().getTime();
+
+let days=
+Math.floor(distance/(1000*60*60*24));
+
+let hours=
+Math.floor(
+(distance%(1000*60*60*24))
+/
+(1000*60*60)
+);
+
+let minutes=
+Math.floor(
+(distance%(1000*60*60))
+/
+(1000*60)
+);
+
+let seconds=
+Math.floor(
+(distance%(1000*60))
+/
+1000
+);
+
+
+document.getElementById("days").textContent=
+String(days).padStart(2,"0");
+
+document.getElementById("hours").textContent=
+String(hours).padStart(2,"0");
+
+document.getElementById("minutes").textContent=
+String(minutes).padStart(2,"0");
+
+document.getElementById("seconds").textContent=
+String(seconds).padStart(2,"0");
+
+},1000);
+
+
+/* ================= TOAST ================= */
+
+function showToast(message){
+
+let toast=document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+setTimeout(function(){
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+
+/* ================= CLOSE MODALS ================= */
+
+window.onclick=function(event){
+
+if(event.target===
+document.getElementById("artModal"))
+closeModal();
+
+if(event.target===
+document.getElementById("authModal"))
+closeAuth();
+
+if(event.target===
+document.getElementById("dashboardModal"))
+closeDashboard();
+
+if(event.target===
+document.getElementById("uploadModal"))
+closeUpload();
+
+}
+
+</script>
+
+</body>
+</html>
+```
